@@ -137,6 +137,21 @@ const projectDatabase = {
 };
 
 const projectKeys = Object.keys(projectDatabase);
+let lastFocusedElement = null;
+
+function setModalState(modal, isOpen) {
+  if (!modal) return;
+  modal.classList.toggle('active', isOpen);
+  modal.setAttribute('aria-hidden', String(!isOpen));
+  if (isOpen) {
+    lastFocusedElement = document.activeElement;
+    const focusTarget = modal.querySelector('button, [href], input, textarea, select, [tabindex]:not([tabindex="-1"])');
+    if (focusTarget) focusTarget.focus();
+  } else if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+    lastFocusedElement.focus();
+    lastFocusedElement = null;
+  }
+}
 
 const certifications = [
   { title: 'Membangun Proyek Deep Learning Tingkat Mahir', issuer: 'Dicoding Indonesia', date: 'June 2026' },
@@ -293,6 +308,7 @@ function renderPagination(container, totalPages, currentPage, onPageChange) {
   const prevBtn = document.createElement('button');
   prevBtn.className = 'pagination-btn clicky-interactive';
   prevBtn.innerHTML = '<i data-lucide="chevron-left"></i>';
+  prevBtn.setAttribute('aria-label', 'Previous page');
   prevBtn.disabled = currentPage === 0;
   prevBtn.addEventListener('click', () => onPageChange(currentPage - 1));
   container.appendChild(prevBtn);
@@ -301,6 +317,8 @@ function renderPagination(container, totalPages, currentPage, onPageChange) {
     const pageBtn = document.createElement('button');
     pageBtn.className = `pagination-btn pagination-num clicky-interactive ${i === currentPage ? 'active' : ''}`;
     pageBtn.textContent = i + 1;
+    pageBtn.setAttribute('aria-label', `Go to page ${i + 1}`);
+    if (i === currentPage) pageBtn.setAttribute('aria-current', 'page');
     pageBtn.addEventListener('click', () => onPageChange(i));
     container.appendChild(pageBtn);
   }
@@ -308,6 +326,7 @@ function renderPagination(container, totalPages, currentPage, onPageChange) {
   const nextBtn = document.createElement('button');
   nextBtn.className = 'pagination-btn clicky-interactive';
   nextBtn.innerHTML = '<i data-lucide="chevron-right"></i>';
+  nextBtn.setAttribute('aria-label', 'Next page');
   nextBtn.disabled = currentPage === totalPages - 1;
   nextBtn.addEventListener('click', () => onPageChange(currentPage + 1));
   container.appendChild(nextBtn);
@@ -347,13 +366,14 @@ function openProjectModal(projectId) {
       a.className = 'btn btn-primary clicky-interactive';
       a.href = link.url;
       a.target = '_blank';
+      a.rel = 'noopener noreferrer';
       a.innerHTML = `${link.text} <i data-lucide="${link.icon}" style="width: 16px; height: 16px;"></i>`;
       linksContainer.appendChild(a);
     }
   });
 
   if (window.lucide) window.lucide.createIcons();
-  detailModal.classList.add('active');
+  setModalState(detailModal, true);
 }
 
 function initProjectModals() {
@@ -361,7 +381,7 @@ function initProjectModals() {
   const closeBtn = document.getElementById('project-detail-close');
   if (!detailModal) return;
 
-  const closeModalFunc = () => detailModal.classList.remove('active');
+  const closeModalFunc = () => setModalState(detailModal, false);
   if (closeBtn) closeBtn.addEventListener('click', closeModalFunc);
   detailModal.addEventListener('click', (e) => {
     if (e.target === detailModal) closeModalFunc();
@@ -371,6 +391,12 @@ function initProjectModals() {
 function initThemeToggle() {
   const themeToggleBtn = document.getElementById('theme-toggle');
   const bodyElement = document.body;
+  const syncThemeButton = () => {
+    const isDark = bodyElement.classList.contains('dark-theme');
+    if (!themeToggleBtn) return;
+    themeToggleBtn.setAttribute('aria-pressed', String(isDark));
+    themeToggleBtn.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+  };
   const savedTheme = localStorage.getItem('theme') || 'light';
   if (savedTheme === 'dark') {
     bodyElement.classList.remove('light-theme');
@@ -379,6 +405,7 @@ function initThemeToggle() {
     bodyElement.classList.remove('dark-theme');
     bodyElement.classList.add('light-theme');
   }
+  syncThemeButton();
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener('click', () => {
       if (bodyElement.classList.contains('dark-theme')) {
@@ -390,6 +417,7 @@ function initThemeToggle() {
         bodyElement.classList.add('dark-theme');
         localStorage.setItem('theme', 'dark');
       }
+      syncThemeButton();
     });
   }
 }
@@ -401,11 +429,17 @@ function initMobileMenu() {
 
   const menuIcon = mobileToggleBtn.querySelector('.menu-icon');
   const closeIcon = mobileToggleBtn.querySelector('.close-icon');
+  const syncMenuButton = () => {
+    const isOpen = navMenu.classList.contains('active');
+    mobileToggleBtn.setAttribute('aria-expanded', String(isOpen));
+    mobileToggleBtn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+  };
 
   mobileToggleBtn.addEventListener('click', () => {
     navMenu.classList.toggle('active');
     menuIcon.classList.toggle('hidden');
     closeIcon.classList.toggle('hidden');
+    syncMenuButton();
   });
 
   document.querySelectorAll('.nav-link').forEach(link => {
@@ -413,8 +447,10 @@ function initMobileMenu() {
       navMenu.classList.remove('active');
       menuIcon.classList.remove('hidden');
       closeIcon.classList.add('hidden');
+      syncMenuButton();
     });
   });
+  syncMenuButton();
 }
 
 function initHeaderScroll() {
@@ -481,14 +517,14 @@ function initShareModal() {
 
   const openShare = () => {
     if (copyInput) copyInput.value = window.location.href;
-    shareModal.classList.add('active');
+    setModalState(shareModal, true);
   };
 
   if (shareBtn) shareBtn.addEventListener('click', openShare);
   const heroShareBtn = document.getElementById('hero-share-btn');
   if (heroShareBtn) heroShareBtn.addEventListener('click', openShare);
 
-  const closeModalFunc = () => shareModal.classList.remove('active');
+  const closeModalFunc = () => setModalState(shareModal, false);
   if (closeBtn) closeBtn.addEventListener('click', closeModalFunc);
   shareModal.addEventListener('click', (e) => { if (e.target === shareModal) closeModalFunc(); });
 
@@ -498,9 +534,10 @@ function initShareModal() {
       navigator.clipboard.writeText(copyInput.value).then(() => {
         const originalText = copyBtn.innerText;
         copyBtn.innerText = 'Copied!';
+        copyBtn.setAttribute('aria-label', 'Profile URL copied');
         copyBtn.style.backgroundColor = '#6bff8f';
         copyBtn.style.color = '#007432';
-        setTimeout(() => { copyBtn.innerText = originalText; copyBtn.style.backgroundColor = ''; copyBtn.style.color = ''; }, 2000);
+        setTimeout(() => { copyBtn.innerText = originalText; copyBtn.removeAttribute('aria-label'); copyBtn.style.backgroundColor = ''; copyBtn.style.color = ''; }, 2000);
       }).catch(err => console.error('Failed to copy text: ', err));
     });
   }
@@ -534,25 +571,33 @@ function initContactForm() {
 
   contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const originalBtnText = submitBtn.innerHTML;
+    const formData = new FormData(contactForm);
+    const name = formData.get('name') || '';
+    const email = formData.get('email') || '';
+    const subject = formData.get('subject') || 'Portfolio inquiry';
+    const message = formData.get('message') || '';
+    const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
+    const mailtoUrl = `mailto:21adtydwf@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
     const formElements = contactForm.querySelectorAll('input, textarea, button');
     formElements.forEach(el => el.disabled = true);
+    submitBtn.setAttribute('aria-busy', 'true');
 
-    submitBtn.innerHTML = 'Sending... <i data-lucide="loader" class="animate-spin" style="width: 16px; height: 16px; display: inline-block;"></i>';
+    submitBtn.innerHTML = 'Opening email app... <i data-lucide="loader" class="animate-spin" style="width: 16px; height: 16px; display: inline-block;"></i>';
     if (window.lucide) window.lucide.createIcons();
 
     setTimeout(() => {
+      window.location.href = mailtoUrl;
       statusMsg.className = 'form-status success';
-      statusMsg.textContent = 'Your message has been sent successfully! Thank you.';
+      statusMsg.textContent = 'Your email app should open with the message ready to send.';
       statusMsg.classList.remove('hidden');
 
-      contactForm.reset();
       formElements.forEach(el => el.disabled = false);
-      submitBtn.innerHTML = originalBtnText;
+      submitBtn.setAttribute('aria-busy', 'false');
+      submitBtn.innerHTML = 'Send Message';
       if (window.lucide) window.lucide.createIcons();
       setTimeout(() => statusMsg.classList.add('hidden'), 5000);
-    }, 1500);
+    }, 250);
   });
 }
 
@@ -765,7 +810,6 @@ function initBackToTop() {
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     const activeModals = document.querySelectorAll('.modal-overlay.active');
-    activeModals.forEach(modal => modal.classList.remove('active'));
+    activeModals.forEach(modal => setModalState(modal, false));
   }
 });
-
