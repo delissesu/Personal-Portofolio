@@ -55,8 +55,8 @@ const projectDatabase = {
     iconColor: '#0ea5e9',
     bgColor: '#e0f2fe',
     links: [
-      { text: 'Repository', icon: 'github', url: 'https://github.com/delissesu' },
-      { text: 'Live Demo', icon: 'globe', url: 'https://github.com/delissesu' },
+      { text: 'Repository', icon: 'github', url: 'https://github.com/delissesu/NutriScan-MBG' },
+      { text: 'Live Demo', icon: 'globe', url: 'https://nutriscan-mbg.vercel.app' },
     ]
   },
   'citech': {
@@ -70,8 +70,8 @@ const projectDatabase = {
     iconColor: '#a855f7',
     bgColor: '#f3e8ff',
     links: [
-      { text: 'Repository', icon: 'github', url: 'https://github.com/delissesu' },
-      { text: 'Live Demo', icon: 'globe', url: 'https://github.com/delissesu' },
+      { text: 'Repository', icon: 'github', url: 'https://github.com/delissesu/CITECH' },
+      { text: 'Live Demo', icon: 'globe', url: 'https://citech.ukmlaos.com/' },
     ]
   },
   'suara-mawa': {
@@ -85,8 +85,8 @@ const projectDatabase = {
     iconColor: '#ec4899',
     bgColor: '#ffe4e6',
     links: [
-      { text: 'Repository', icon: 'github', url: 'https://github.com/delissesu' },
-      { text: 'Live Demo', icon: 'globe', url: 'https://github.com/delissesu' },
+      { text: 'Repository', icon: 'github', url: 'https://github.com/delissesu/Suara-MAWA' },
+      // { text: 'Live Demo', icon: 'globe', url: 'https://github.com/delissesu' },
     ]
   },
   'kopdes-merah-putih': {
@@ -100,8 +100,8 @@ const projectDatabase = {
     iconColor: '#f59e0b',
     bgColor: '#fef3c7',
     links: [
-      { text: 'Repository', icon: 'github', url: 'https://github.com/delissesu' },
-      { text: 'Live Demo', icon: 'globe', url: 'https://github.com/delissesu' },
+      { text: 'Repository', icon: 'github', url: 'https://github.com/delissesu/KOPDES-Merah-Putih' },
+      // { text: 'Live Demo', icon: 'globe', url: 'https://github.com/delissesu' },
     ]
   },
   'asistenku': {
@@ -115,8 +115,8 @@ const projectDatabase = {
     iconColor: '#006e2f',
     bgColor: '#cbfbe0',
     links: [
-      { text: 'Repository', icon: 'github', url: 'https://github.com/delissesu' },
-      { text: 'Live Demo', icon: 'globe', url: 'https://github.com/delissesu' },
+      { text: 'Repository', icon: 'github', url: 'https://github.com/delissesu/ASISTENKU' },
+      // { text: 'Live Demo', icon: 'globe', url: 'https://github.com/delissesu' },
     ]
   },
   'flofa': {
@@ -130,8 +130,8 @@ const projectDatabase = {
     iconColor: '#0d8a43',
     bgColor: '#e2f9ec',
     links: [
-      { text: 'Repository', icon: 'github', url: 'https://github.com/delissesu' },
-      { text: 'Live Demo', icon: 'globe', url: 'https://github.com/delissesu' },
+      { text: 'Repository', icon: 'github', url: 'https://github.com/delissesu/Flofa-Game-Based-Learning' },
+      // { text: 'Live Demo', icon: 'globe', url: 'https://github.com/delissesu' },
     ]
   }
 };
