@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const projectDatabase = {
   'nutriscan-mbg': {
     title: 'NutriScan MBG',
-    desc: 'AI-powered web platform for food detection and nutrition analysis using computer vision. Built as a multidisciplinary capstone project focused on reliable image segmentation and nutrition analysis workflows.',
+    desc: 'AI-powered web platform for food detection and nutrition analysis. Features U-Net image segmentation and MobileNetV2 classification, developed with a 6-member capstone team.',
     tags: ['Python', 'TensorFlow', 'Computer Vision', 'U-Net', 'MobileNetV2'],
     focus: 'Capstone project showcase',
     date: 'June 2026',
@@ -67,7 +67,7 @@ const projectDatabase = {
   },
   'citech': {
     title: 'CITECH',
-    desc: 'Web-based registration management system for a carnival technology web design competition. Built to streamline participant registration and simplify admin review.',
+    desc: 'Web-based registration management system for a technology competition. Features Google OAuth, user scope management, and an administrative dashboard.',
     tags: ['Laravel', 'PHP', 'MySQL', 'Google OAuth', 'TailwindCSS'],
     focus: 'Registration workflow',
     date: 'June 2026',
@@ -82,7 +82,7 @@ const projectDatabase = {
   },
   'suara-mawa': {
     title: 'Suara MAWA',
-    desc: 'Mobile application for student aspiration management and reporting. Designed to centralize submissions and make follow-up easier for students and administrators.',
+    desc: 'Mobile application for student aspiration and reporting. Provides a transparent platform for students to submit complaints, feedback, and suggestions.',
     tags: ['Mobile', 'Flutter', 'Dart', 'REST API'],
     focus: 'Aspiration reporting',
     date: 'June 2026',
@@ -97,7 +97,7 @@ const projectDatabase = {
   },
   'kopdes-merah-putih': {
     title: 'KOPDES Merah Putih',
-    desc: 'Web application focused on CFG-based testing, white-box testing, and black-box testing practices during software verification.',
+    desc: 'Cooperative management web app built to demonstrate testing methodologies. Implements Control Flow Graph (CFG), White Box, and Black Box tests.',
     tags: ['PHP', 'Software Testing', 'CFG', 'White Box', 'Black Box'],
     focus: 'Testing workflow',
     date: 'June 2026',
@@ -112,7 +112,7 @@ const projectDatabase = {
   },
   'asistenku': {
     title: 'ASISTENKU',
-    desc: 'Web application for laboratory assistant recruitment management. Built to automate evaluation and selection workflows across departments.',
+    desc: 'Web-based recruitment system for lab assistants. Streamlines application submission, applicant evaluation, and departmental assignment.',
     tags: ['Web App', 'PHP', 'MySQL', 'Bootstrap'],
     focus: 'Recruitment workflow',
     date: 'January 2026',
@@ -127,7 +127,7 @@ const projectDatabase = {
   },
   'flofa': {
     title: 'FLOFA',
-    desc: 'Educational game-based learning application for Indonesian flora and fauna recognition with music gamification.',
+    desc: 'Educational game for recognizing Indonesian flora and fauna. Combines interactive visual mechanics with music-based gamification to engage learners.',
     tags: ['Game Dev', 'Education', 'Gamification', 'Music'],
     focus: 'Game-based learning',
     date: 'January 2026',
