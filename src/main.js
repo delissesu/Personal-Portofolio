@@ -1,5 +1,5 @@
 import './style.css';
-import lilyAvatar from './assets/lily.jpeg';
+import frierenAvatar from './assets/Frieren.jpeg';
 import nutriscanImg from './assets/NutriScan-MBG.png';
 import citechImg from './assets/CITECH.png';
 import asistenkuImg from './assets/ASISTENKU2.jpg';
@@ -18,14 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const faviconLink = document.querySelector("link[rel='icon']");
   if (faviconLink) {
     faviconLink.type = 'image/jpeg';
-    faviconLink.href = lilyAvatar;
+    faviconLink.href = frierenAvatar;
   }
 
   const illustrationAvatar = document.getElementById('illustration-avatar');
-  if (illustrationAvatar) illustrationAvatar.src = lilyAvatar;
+  if (illustrationAvatar) illustrationAvatar.src = frierenAvatar;
 
-  const navAvatarImg = document.getElementById('nav-avatar-img');
-  if (navAvatarImg) navAvatarImg.src = lilyAvatar;
+  const navAvatarImg = document.getElementById('nav-avatar-img'); 
+  if (navAvatarImg) navAvatarImg.src = frierenAvatar;
 
   if (window.lucide) window.lucide.createIcons();
 
