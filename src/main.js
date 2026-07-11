@@ -12,6 +12,12 @@ const ANIM = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+  const faviconLink = document.querySelector("link[rel='icon']");
+  if (faviconLink) {
+    faviconLink.type = 'image/jpeg';
+    faviconLink.href = lilyAvatar;
+  }
+
   const illustrationAvatar = document.getElementById('illustration-avatar');
   if (illustrationAvatar) illustrationAvatar.src = lilyAvatar;
 
