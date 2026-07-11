@@ -1,5 +1,8 @@
 import './style.css';
 import lilyAvatar from './assets/lily.jpeg';
+import nutriscanImg from './assets/NutriScan-MBG.png';
+import citechImg from './assets/CITECH.png';
+import asistenkuImg from './assets/ASISTENKU2.jpg';
 
 const ANIM = {
   FADE_DURATION_MS: 300,
@@ -58,6 +61,7 @@ const projectDatabase = {
     date: 'June 2026',
     year: '2026',
     icon: 'scan-eye',
+    image: nutriscanImg,
     iconColor: '#0ea5e9',
     bgColor: '#e0f2fe',
     links: [
@@ -73,6 +77,7 @@ const projectDatabase = {
     date: 'June 2026',
     year: '2026',
     icon: 'globe',
+    image: citechImg,
     iconColor: '#a855f7',
     bgColor: '#f3e8ff',
     links: [
@@ -118,6 +123,7 @@ const projectDatabase = {
     date: 'January 2026',
     year: '2026',
     icon: 'users',
+    image: asistenkuImg,
     iconColor: '#006e2f',
     bgColor: '#cbfbe0',
     links: [
@@ -352,7 +358,11 @@ function openProjectModal(projectId) {
 
   const visualContainer = document.getElementById('project-detail-visual-container');
   visualContainer.style.backgroundColor = data.bgColor;
-  visualContainer.innerHTML = `<i data-lucide="${data.icon}" style="color: ${data.iconColor}; width: 80px; height: 80px;"></i>`;
+  if (data.image) {
+    visualContainer.innerHTML = `<img src="${data.image}" alt="${data.title}" style="width: 100%; height: 100%; object-fit: cover;" />`;
+  } else {
+    visualContainer.innerHTML = `<i data-lucide="${data.icon}" style="color: ${data.iconColor}; width: 80px; height: 80px;"></i>`;
+  }
 
   const tagsContainer = document.getElementById('project-detail-tags');
   tagsContainer.innerHTML = '';
